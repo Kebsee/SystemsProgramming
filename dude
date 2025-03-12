@@ -1,0 +1,7 @@
+#!/bin/bash
+if ["apple" \< "abana" ];then
+    echo "Apple>"
+else
+    echo "Abanan"
+
+    
