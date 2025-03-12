@@ -16,11 +16,10 @@ STR=""
 # Read each line of the CSV file
 while IFS=',' read -r col1 col2 col3 col4
 do
-    
-    # Compare col1 and col3
-    if [ "$col1" = "$col3" ]; then
+    # echo "Column 1 : $col1 , Column 3: $col3"
 
-    else
+    # Compare col1 and col3
+    if [ "$col1" != "$col3" ]; then
         
         # Set STR for appending to the file
         STR="$col3,-,-,$col4"
@@ -28,6 +27,7 @@ do
 
         # Change col4 to "-"
         col4="-"
+        # echo "Modified Column 4 to: $col4"
         
     fi
 
