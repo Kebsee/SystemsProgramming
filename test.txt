@@ -1,5 +1,1 @@
-abcdefghijklmnopqrstuvwxyz
-
-balls
-
-hello
+ABCDEFGHIJKLMNOPQRSTUVWXYZ

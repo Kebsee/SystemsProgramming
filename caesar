@@ -21,22 +21,18 @@ while getopts "k:u" opt; do
   esac
 done
 
+
+
 # convert k value to str
 k=$((k_value))
 
 
 # Check if we need to perform additional actions
 if [[ $u_flag -eq 1 ]]; then
-  str="ACDEFGHIJKLMNOPQRSTUVWXYZ"
-  char="${str:k:1}"
-  char2="${str:k-1%25:1}"
-  trans="[${char}-ZA-${char2}]"
+  trans=$(./create_pattern -k $k -u)
   cat | tr '[A-Z]' $trans
 else
-  str="abcdefghijklmnopqrstuvwxyz"
-  char="${str:k:1}"
-  char2="${str:k-1%25:1}"
-  trans="[${char}-za-${char2}]"
+    trans=$(./create_pattern -k $k)
   cat | tr '[a-z]' $trans
 fi
 

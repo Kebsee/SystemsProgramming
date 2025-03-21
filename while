@@ -1,0 +1,8 @@
+#!/bin/bash
+num="1";
+num=$((num))
+str="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+
+trans="$(./create_pattern -k $num -u )"
+echo $trans
