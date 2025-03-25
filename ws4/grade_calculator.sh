@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 case $1 in
     9[0-9]|100)  # Matches numbers from 90 to 100
         echo "A"
