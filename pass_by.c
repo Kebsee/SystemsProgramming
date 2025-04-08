@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 // Function to demonstrate pass by value
 void passByValue(int x) {
@@ -15,6 +16,9 @@ void passByPointer(int *x) {
 int main() {
     int a = 10;
     int b = 10;
+
+    printf("a^b = %.2f\n", pow(a, b));
+
 
     printf("Before passByValue: a = %d\n", a);
     passByValue(a);
