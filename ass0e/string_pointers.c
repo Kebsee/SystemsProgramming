@@ -11,6 +11,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    char *start = str[0];
+
+    for (int i = 0; i < sizeof(str); i++)
+    {
+        printf("%c\n",*(start+i));
+    }
+    
+
 
     return 0;
 }
