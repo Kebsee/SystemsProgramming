@@ -1,0 +1,1 @@
+fork(), open(), dup2(), execvp(), and wait() system calls. The open() 
