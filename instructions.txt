@@ -1,0 +1,78 @@
+Part 1 - Threads (40%)
+Within slow_functions.c there are two "slow functions".
+
+The first, requires a second to 'generate data'. It then increments a counter guarded by a mutex. If the counter reaches 10, it prints "Work Done".
+
+The second prints a message "Start 2", then waits for 2 seconds before printing "End 2".
+
+The goal is to get the "Work Done" string to land in between "Start 2" and "End 2".
+
+Start 2
+Work Done
+End 2
+You are to write a file "part1.c". You may do what you like in this code (part1.c) but you must call both "slow functions" AND you may not modify "slow_functions.c". Additionally, you may not call slow_function1 unless slow_function2 has been called - the code prevents it from working!
+
+Herein lies the challenge. To get the correct order of print statements (above), you need to:
+
+Run slow_function1 ten times.
+However, the first time you run slow_function1 must be after you have run slow_function2 (because there is a mutex initialisation needed).
+Both Start 2 and End 2 are in slow_function2.
+Hence, you need to somehow run slow_function1 ten times in between starting slow_function2 and finishing slow_function2.
+Keep in mind that you only have 2 seconds and yet slow_function1 requires 1 second to run. Sounds impossible right?
+
+Threads are your friend.
+
+Your Makefile should build an executable called PART1.
+ 
+
+Part 2 - Signalling and Mutexes (60 %)
+Having solved a fairly small threading task, now it is time to try to get threads to communicate well.
+
+Like part 1, this section relies on functions found in "slow_functions.c". Again, you may not modify this file. You will also be provided with part2.c. This file contains two functions (where you will do your work) and a main (which you will leave unmodified - well, you are allowed to add stuff before and after the // ### DO NOT MODIFY sections, but please don't make it a big "if (false)" or something ridiculous like that.
+
+The main function does the following:
+
+It reads input from a file (i.e. ./PART2 < input_file). It then starts two threads: writer and reader. Your job is to write the contents of these two functions.
+
+writer
+
+The goal of writer is simple. It must call bad_write (found in slow_functions.c) once for each line of input.
+
+reader
+
+The goal of reader is simple. It must call bad_read (also found in slow_functions.c) once each time something is written by bad_write.
+
+Now here is the trick. bad_read and bad_write both access a single buffer and both have some arbitrary delays in them. This means that simply having two threads trying to write to the buffer and read from it simultaneously will never give you the right output. bad_read replaces anything it reads from the buffer with garbage text so beware.
+
+Fortunately, whenever bad_write writes, it sets a flag and whenever bad_read reads it sets it back. You can access this flag via get_written (it is hidden in slow_functions.c) so this can help you get the timing right.
+
+So mutexes will be your friend here. You will have to decide how best to use them. Moreover, mutexes are likely to be insufficient. You will probably need some wait conditions (maybe two) to make sure the two threads play well with each other to get the desired output.
+
+Your Makefile should build an executable called PART2.
+ 
+
+Submission
+Makefile
+When running its tests, the autograder will perform something similar to:
+
+# please note the mixed case in the following... sorry, this could be more consistent :-/
+
+make part1      # this should be an executable called -o PART1
+
+make part2.     # this should be an executable called -o PART2
+
+./PART1
+
+./PART2 < input_file
+It is up to you to ensure your Makefile (which is required) will handle this sensibly. Do not forget that threaded programs need -pthread as a flag and that you will need to include slow_functions.c and slow_functions.h in your submission.
+
+The files you submit must include:
+
+Your C source files as specified above.
+A Makefile that will compile your C sources as specified above.
+Make sure you submit your files often, it's a good idea to submit your work after you complete each question, especially when later questions rely on correct code from earlier questions. Regular submission is also a good defence against plagiarism by others, since the submissions are dated.
+
+We will test the behaviour of your scripts using an automated tester. The autograder is thorough, and will find places where your scripts do not work correctly. If it finds an error, it will offer a (vaguish) hint. The autograder is not a substitute for local testing. Please ensure you test your code locally before submitting. 
+
+The Gradescope autograder will award up to 100 marks automatically. Note that we reserve the right to deduct marks if your code does anything egregious or games the system to obtain marks. Late penalties apply as described on the Assessments page.
+
